@@ -1,120 +1,128 @@
-#include<iostream>
-#include<string>
-#include<set>
-#include<vector>
-#include<algorithm>
+#include <iostream>
+#include <string>
+#include <set>
+#include <vector>
+#include <algorithm>
 using namespace std;
 struct Rank
 {
     string ID;
-    int C;
-    int Math;
-    int Eng;
-    int Avg;
+    double C;
+    double Math;
+    double Eng;
+    double Avg;
     int ran;
-    friend bool operator==(Rank x,Rank y)
+    friend bool operator==(Rank x, Rank y)
     {
-        return (x.ID==y.ID); 
+        return (x.ID == y.ID);
     }
 };
-bool mypredicte(Rank x,Rank y)
+vector<double> cset;
+vector<double> mathset;
+vector<double> engset;
+vector<double> avgset;
+vector<Rank> myset;
+bool mypredicte(Rank x, Rank y)
 {
-    return (x.ID==y.ID);
+    return (x.ID == y.ID);
+}
+vector<Rank>::iterator find_id(string str)
+{
+    vector<Rank>::iterator itr;
+    for (itr = myset.begin(); itr < myset.end(); itr++)
+        if ((*itr).ID == str)
+            return itr;
+    return itr;
+}
+char find_top(vector<Rank>::iterator itr)
+{
+    vector<double>::iterator it;
+
+    char temp;
+    int top = 2001;
+
+    it = find(avgset.begin(), avgset.end(), (*itr).Avg);
+    top = 1 + it - avgset.begin();
+    temp = 'A';
+    (*itr).ran = top;
+
+    it = find(cset.begin(), cset.end(), (*itr).C);
+    if ((1 + it - cset.begin()) < top)
+    {
+        temp = 'C';
+        (*itr).ran = (1 + it - cset.begin());
+        top = (*itr).ran;
+    }
+
+    it = find(mathset.begin(), mathset.end(), (*itr).Math);
+    if ((1 + it - mathset.begin()) < top)
+    {
+        temp = 'M';
+        (*itr).ran = (1 + it - mathset.begin());
+        top = (*itr).ran;
+    }
+
+    it = find(engset.begin(), engset.end(), (*itr).Eng);
+    if ((1 + it - engset.begin()) < top)
+    {
+        temp = 'E';
+        (*itr).ran = (1 + it - engset.begin());
+        top = (*itr).ran;
+    }
+
+    return temp;
 }
 int main()
 {
-    set<Rank> myset;
-    //vector<string> ID_vec;
-    //vector<int> idset;
-    vector<int> cset;
-    vector<int> mathset;
-    vector<int> engset;
-    vector<int> avgset;
-    int n,m;
-    cin>>n>>m;
+    int n, m;
+    cin >> n >> m;
     Rank temp;
     string id;
-    int c,math,eng,avg;
-    for(int i=0;i<n;i++)
+    int c, math, eng, avg;
+    for (int i = 0; i < n; i++)
     {
-        avg=0;
-        cin>>id>>c>>math>>eng;
-        temp.ID=id;
-        temp.C=c;
-        temp.Math=math;
-        temp.Eng=eng;
-        avg=(math+c+eng)/3;
-        temp.Avg=avg;
+        avg = 0;
+        cin >> id >> c >> math >> eng;
+        temp.ID = id;
+        temp.C = c;
+        temp.Math = math;
+        temp.Eng = eng;
+        avg = (math + c + eng) / 3;
+        temp.Avg = avg;
         cset.push_back(c);
         mathset.push_back(math);
         engset.push_back(eng);
         avgset.push_back(avg);
-        myset.insert(temp);
+        myset.push_back(temp);
     }
-    for(int i=0;i<myset.size();i++)
+    sort(cset.rbegin(), cset.rend());
+    sort(mathset.rbegin(), mathset.rend());
+    sort(engset.rbegin(), engset.rend());
+    sort(avgset.rbegin(), avgset.rend());
+
+    vector<string> query(m);
+    for (int i = 0; i < m; i++)
     {
-        sort(cset.begin(),cset.end());
-        sort(mathset.begin(),mathset.end());
-        sort(engset.begin(),engset.end());
-        sort(avgset.begin(),avgset.end());
+        cin >> query[i];
     }
     vector<Rank>::iterator itr;
-    vector<string> query(m);
-    for(int i=0;i<m;i++)
+    for (int i = 0; i < m; i++)
     {
-        cin>>query[i];
-    }
-    for(int i=0;i<m;i++)
-    {
-        id=query[i];
-        itr=myset.find(id);
-        int max=0;
-        if(itr!=myset.end())
+
+        id = query[i];
+        itr = find_id(id);
+        //int max = 0;
+        char temp;
+        if (itr < myset.end())
         {
-            int flag;
-            if((*itr).Avg>max)
-            {
-                max=(*itr).Avg;
-                flag=0;
-            }
-            if((*itr).C>max)
-            {
-                max=(*itr).C;
-                flag=1;
-            }
-            if((*itr).Math>math)
-            {
-                max=(*itr).Math;
-                flag=2;
-            }
-            if((*itr).Eng>eng)
-            {
-                max=(*itr).Eng;
-                flag=3;
-            }
-            vector<int>::iterator it;
-            switch (flag)
-            {
-            case 0:
-                it=find(avgset.begin(),avgset.end(),(*itr).Avg);
-                cout<<int(1+it-avgset.begin())<<" "<<"A";
-            case 1:
-                it=find(cset.begin(),cset.end(),(*itr).C);
-                cout<<int(1+it-avgset.begin())<<" "<<"C";
-            case 2:
-                it=find(mathset.begin(),mathset.end(),(*itr).Math);
-                cout<<int(1+it-avgset.begin())<<" "<<"M";
-            case 3:
-                it=find(engset.begin(),engset.end(),(*itr).Eng);
-                cout<<int(1+it-avgset.begin())<<" "<<"E";
-                /* code */
-                break;
-            
-            default:
-                break;
-            }
+            temp = find_top(itr);
+            cout << (*itr).ran << ' ' << temp;
         }
-        else cout<<"N/A";
+        else
+            cout << "N/A";
+        if (i < m - 1)
+            cout << endl;
     }
-    
+    int pause;
+    cin >> pause;
 }
