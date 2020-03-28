@@ -12,16 +12,9 @@ bool cmp(const pair<string, int>& a, const pair<string, int>& b)
 {
     return a.second > b.second;
 }
-bool isNum(char ch)
-{
-
-    if (ch >= '0' && ch <= '9')
-        return true;
-    else
-        return false;
-}
 bool isLetter(char ch)
 {
+	//忽略' 
     if ((ch >= 'a' && ch <= 'z')||(ch >= 'A' && ch <= 'Z'))
         return true;
     else
@@ -48,19 +41,15 @@ void token(string chars)
     {
         string arr = "";
         ch = chars[i];
-        //        while (ch == '?'||ch == '.'||ch == ','||ch == ' ' || ch == '\t'
-        //      || ch == '\n' || ch == '\r') //忽略空格、换行、回车和Tab
         while (!isLetter(ch) && !isNum(ch))
         {
             ch = chars[++i];
         }
         if (isLetter(ch))
-        { //变量名以字母开头 其中可能包含数字
+        { 
             while (isLetter(ch))
             {
-                //if(isLetter(ch))
-                ch=ch>='a'?ch:ch+32;
-
+                ch=ch>='a'?ch:ch+32;//忽略大小写
                 arr+=ch; //arr的拓展要放在前面
                 ch = chars[++i];
             }
