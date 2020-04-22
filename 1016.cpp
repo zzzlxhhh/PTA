@@ -33,6 +33,7 @@ void printBill()
     sort(res_vec.begin(),res_vec.end(),cmpres);
     for(int i=0;i<res_vec.size();i++)
     {
+        
         double Mcost=0;
         cout<<res_vec[i].first<<" "<<res_vec[i].second[0].second.t.substr(0,2)<<endl;
         for(int j=0;j<res_vec[i].second.size();j++)
@@ -47,7 +48,10 @@ void printBill()
             if(start.D==end.D)
             { 
                for(int p=start.H;p<=end.H;p++)
-                if(p==start.H) cost+=(60-start.mm)*toll[p];
+                if(p==start.H&&start.H==end.H) 
+                cost+=(end.mm-start.mm)*toll[p];//同一天的同一小时下
+                else if(p==start.H)
+                cost+=(60-start.mm)*toll[p];
                 else if(p<end.H) cost+=60*toll[p];
                 else if(p==end.H) cost+=end.mm*toll[p];
             }
@@ -82,9 +86,6 @@ void mkbill()
         unordered_map<string, vector<pair<rec,rec>>>::iterator bill_itr = cus_bill.begin();
         for(;vec_itr<(rec_itr->second.end())-1;)//注意越界问题
         {
-            //cout<<rec_itr->second.size()<<endl;
-           // for(int p=0;p!=rec_itr->second.size();p++)
-             //   cout<<rec_itr->second[p].total<<" ";
             if(rec_itr->second.size()==1) break;//可放在外层
             if(vec_itr->online==true&&(vec_itr+1)->online==false)
                 {
