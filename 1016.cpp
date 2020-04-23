@@ -69,10 +69,11 @@ void printBill()
                 
             }
             
-            cout<<"$"<<fixed<<setprecision(2)<<cost/100<<endl;
+            printf("$%.2f",cost/100);
+            cout<<endl;
             Mcost+=cost;//总开销
         }
-        cout<<"Total amount: $"<<fixed<<setprecision(2)<<Mcost/100<<endl; 
+        printf("Total amount: $%.2f\n",Mcost/100); 
     }
 }
 void mkbill()
