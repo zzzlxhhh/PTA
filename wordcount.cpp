@@ -41,7 +41,7 @@ void token(string chars)
     {
         string arr = "";
         ch = chars[i];
-        while (!isLetter(ch) && !isNum(ch))
+        while (!isLetter(ch))
         {
             ch = chars[++i];
         }
