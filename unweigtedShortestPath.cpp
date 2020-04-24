@@ -5,6 +5,7 @@
 #include<queue>
 #include<cstring>
 using namespace std;
+//算法类似于BFS
 map<int,vector<int>> road;
 int main()
 {
@@ -35,7 +36,7 @@ int main()
     fill(path.begin(),path.end(),-1);
     fill(dist.begin(),dist.end(),-1);
     int start;
-    cin>>start;
+    cin>>start;//start point
     dist[start]=0;//initialize
     q.push(start);
     int vtmp;
@@ -55,7 +56,7 @@ int main()
         }    
     }
     int end,tmp;
-    cin>>end;tmp=end;
+    cin>>end;tmp=end;//end point
     stack<int> result;
     while(path[tmp]!=start)
     {
