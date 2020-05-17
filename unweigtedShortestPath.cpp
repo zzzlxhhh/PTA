@@ -32,7 +32,7 @@ int main()
     //search for shortest path
     queue<int> q;
     vector<int> path(v+1);
-    vector<int> dist(v+1);
+    vector<int> dist(v+1);//到起始点的距离
     fill(path.begin(),path.end(),-1);
     fill(dist.begin(),dist.end(),-1);
     int start;
