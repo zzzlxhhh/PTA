@@ -20,7 +20,7 @@ bool cmp(date a,date b)
 }
 int main()
 {
-    int N,K;
+    int N,K;//K窗口
     cin>>N>>K;
     for(int i=0;i<N;i++)
     {
@@ -33,7 +33,7 @@ int main()
     }
     N=q.size();
     sort(q.begin(),q.end(),cmp);
-    priority_queue<int,vector<int>,greater<int>> win;
+    priority_queue<int,vector<int>,greater<int>> win;//利用优先队列
     double waittime=0;
     for(int i=0;i<K;i++) win.push(28800);
     while(q.size()>0)

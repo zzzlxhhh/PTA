@@ -46,7 +46,7 @@ int main()
     
     vector<pair<int,int>>::iterator vec_itr;
     itr=road.find(start);
-    vec_itr=itr->second.begin(); 
+    vec_itr=itr->second.begin(); //初始化起点邻接点
     for(int i=0;i<itr->second.size();i++)//attention !!!!!! initialize!!!!
         {
             path[(vec_itr+i)->first]=start;
@@ -62,7 +62,7 @@ int main()
     {
         tmp=-1;
         min=999999;
-       for(int i=1;i<v+1;i++)
+       for(int i=1;i<v+1;i++)//从点1开始
        if(dist[i]<min&&collected[i]==0){tmp=i;min=dist[i];} 
         //未收录的最小的点的tmp
         if(tmp==-1) break;

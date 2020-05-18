@@ -45,7 +45,7 @@ int main()
         vtmp=q.front();
         q.pop();
         itr=road.find(vtmp);
-        for(int i=0;i<itr->second.size();i++)
+        for(int i=0;i<itr->second.size();i++)//邻接点遍历
         {
             if(dist[itr->second[i]]==-1)
             {
