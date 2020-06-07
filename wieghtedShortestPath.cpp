@@ -39,7 +39,7 @@ int main()
     vector<int> path(v+1);
     vector<int> dist(v+1);//attention for definition of dist
     fill(path.begin(),path.end(),-1);
-    fill(dist.begin(),dist.end(),999999);
+    fill(dist.begin(),dist.end(),999999);//此处的dist初始化只可为infinity
     
     int start,end;
     cin>>start>>end;//start point

@@ -27,9 +27,9 @@ int main()
     {
         cin>>i>>j>>w;
         r[i][j]=w;
-        r[j][i]=w;
+        //r[j][i]=w;
         path[i][j]=-1;
-        path[j][i]=-1;
+        //path[j][i]=-1;
     }
     //为进行floyd算法做初始化
     //对角元素初始化为0
@@ -41,7 +41,7 @@ int main()
     for(int k=0;k<v_num;k++)
     for(i=0;i<v_num;i++)
     for(j=0;j<v_num;j++)
-    {
+    {//r所指
         if(r[i][k]+r[k][j]<r[i][j])
         {
             r[i][j]=r[i][k]+r[k][j];
@@ -53,7 +53,22 @@ int main()
    // int b=65535;
     //cout<<b;
     cout<<0<<"->";
-    print_midpath(0,3);
+    print_midpath(1,6);
     cout<<3;
     cin>>i;
 }
+/*
+8 12
+1 4 1
+1 2 2
+2 4 3 
+2 5 10
+4 5 2
+4 3 2
+4 7 4
+4 6 8
+3 1 4
+3 6 5
+7 6 1 
+5 7 6
+*/
