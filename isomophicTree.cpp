@@ -10,7 +10,7 @@ struct Node   //静态链表,使用该结构 输入顺序可以任意 不以根�
 };
 Node arr1[maxsize];
 Node arr2[maxsize];
-int buildTree(Node arr[])
+int buildTree(Node arr[])//返回根节点
 {
 	int n;
 	cin>>n;//输入节点个数
@@ -24,8 +24,8 @@ int buildTree(Node arr[])
 		if(l!='-')
 		{
 			arr[i].left=l-'0';
-			check[l-'0']=1;//表明有节点指向节点l
-		}
+			check[l-'0']=1;//表明有节点指向节点l，由父指向儿
+		}//而根节点无父节点，可根据check判断
 		else
 			arr[i].left=-1;//左子树为空
 		if(r!='-')
@@ -44,15 +44,17 @@ int buildTree(Node arr[])
 }
 int isomophic(int r1,int r2)
 {
-	if(r1==-1&&r2==-1) return 1;
-	else if(r1==-1||r2==-1) return 0;
-	if(arr1[r1].elem!=arr2[r2].elem) return 0;
-	if(arr1[r1].left==-1&&arr2[r2].left==-1)
+	if(r1==-1&&r2==-1) return 1;//根都为空
+	else if(r1==-1||r2==-1) return 0;//根一个空一个不空
+	if(arr1[r1].elem!=arr2[r2].elem) return 0;//根都不为空 则比较元素
+	if(arr1[r1].left==-1&&arr2[r2].left==-1)//左子树都为空 比较右子树
 		return isomophic(arr1[r1].right,arr2[r2].right);
+	//左儿子都不为空，且相等则继续 不需要swap比较下一层
 	if(arr1[r1].left!=-1&&arr2[r2].left!=-1
 	        &&arr1[arr1[r1].left].elem==arr2[arr2[r2].left].elem)
 		return isomophic(arr1[r1].left,arr2[r2].left)&&
 		       isomophic(arr1[r1].right,arr2[r2].right);
+	//
 	else return isomophic(arr1[r1].left,arr2[r2].right)&&
 		            isomophic(arr1[r1].right,arr2[r2].left);
 }

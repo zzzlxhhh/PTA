@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <stack>
+#include<queue>
 #define maxsize 100
 struct Node
 {
@@ -118,6 +119,22 @@ Node* findmin(Node *root)
     while(root->left) root=root->left;
     return root;
 }
+void laytra(Node *t)
+{
+	queue<Node> s;
+	if(t) s.push(*t);
+	else return ;
+	while(!s.empty())
+	{
+		Node tmp=s.front();
+		cout<<tmp.elem<<"->";
+		s.pop();
+		if(tmp.left)
+		 	s.push(*tmp.left);
+		if(tmp.right) 
+			s.push(*tmp.right);		
+	}
+}
 int main() 
 {
     Node *bst=NULL;
@@ -132,6 +149,7 @@ int main()
     }
     cout<<bst->elem<<endl;
     cout<<find(bst,10)->elem<<" height:"<<find(bst,10)->height<<endl;
-	cout<<"min->right:"<<findmin(bst)->right->elem<<endl;
+	laytra(bst); cout<<endl;
+	cout<<"min->right:"<<findmin(bst)->elem<<endl;
 	return 0;
 }
