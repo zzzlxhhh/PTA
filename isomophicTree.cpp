@@ -44,6 +44,9 @@ int buildTree(Node arr[])//返回根节点
 }
 int isomophic(int r1,int r2)
 {
+	//左子树的情况分三类 1、空空[判断右边]2、都不空（又同时包含左子树根相等[无需swap]、不相等[则swap]）
+	//3、空 不空则swap
+
 	if(r1==-1&&r2==-1) return 1;//根都为空
 	else if(r1==-1||r2==-1) return 0;//根一个空一个不空
 	if(arr1[r1].elem!=arr2[r2].elem) return 0;//根都不为空 则比较元素
